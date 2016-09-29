@@ -18,11 +18,11 @@ By the end of this project, you will have learned how to update UI elements in r
 **Create a working calculator**. In any cases of uncertainty on how to update `resultLabel`, follow the behavior of the iOS calculator.
 
 ### 1.  Required Behaviors  (See `GeneralCalcUITests`)
-  - [ *] a. `resultLabel` can hold a max of 7 characters 
-  - [ ] b. Pressing a number button updates the `resultLabel` (if a user action would violate rule a, ignore that action)
+  - [x] a. `resultLabel` can hold a max of 7 characters 
+  - [x] b. Pressing a number button updates the `resultLabel` (if a user action would violate rule a, ignore that action)
   - [ ] c. `resultLabel` displays the correct value (the current number being entered, or the result of a calculation)
-  - [ ] d. `C` button resets `resultLabel` to `0`
-  - [ ] e. `+/-` flips the sign of the input
+  - [x] d. `C` button resets `resultLabel` to `0`
+  - [x] e. `+/-` flips the sign of the input
   - [ ] f. `=` updates the `resultLabel` with the resulting calculation
 
 ### 2. Basic Operations (See `BasicCalcUITests`)
