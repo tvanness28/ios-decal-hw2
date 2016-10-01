@@ -23,21 +23,25 @@ class ViewController: UIViewController {
     //       One data structure is initialized below for reference.
     var someDataStructure: [String] = [""]
     class Operation {
-        var var1 : Double
-        var var2 : Double
+        var var1 : String
+        var var2 : String
         var op : String
+        var newVal : Bool
+        var decUsed : Bool
         
         init() {
-            self.var1 = 0
-            self.var2 = 0
+            self.var1 = "0"
+            self.var2 = "0"
             self.op = ""
+            self.newVal = true
+            self.decUsed = false
         }
         
-        func setVar1(_ val : Double) {
+        func setVar1(_ val : String) {
             self.var1 = val
         }
         
-        func setVar2(_ val : Double) {
+        func setVar2(_ val : String) {
             self.var2 = val
         }
         
@@ -45,22 +49,50 @@ class ViewController: UIViewController {
             self.op = op
         }
         
-        func compute() -> Double? {
+        func switchNewVal() {
+            self.newVal = !self.newVal
+        }
+        
+        func computeInt() -> Int? {
+            let a = Int(self.var1)!
+            let b = Int(self.var2)!
             switch self.op {
             case "+":
-                return self.var1 + self.var2
+                return a + b
             case "-":
-                return self.var1 - self.var2
+                return a - b
             case "*":
-                return self.var1 * self.var2
+                return a * b
             case "/":
-                return self.var1 / self.var2
+                return a / b
             default:
                 return nil
             }
         }
         
+        func compute() -> Double? {
+            let a = Double(self.var1)!
+            let b = Double(self.var2)!
+            switch self.op {
+                case "+":
+                    return a + b
+                case "-":
+                    return a - b
+                case "*":
+                    return a * b
+                case "/":
+                    return a / b
+                default:
+                    return nil
+            }
+        }
+        
+        
     }
+    
+    var op: Operation = Operation.init()
+    
+    
     
     
     override func viewDidLoad() {
@@ -92,25 +124,78 @@ class ViewController: UIViewController {
     //       Modify this one or create your own.
     func updateResultLabel(_ content: String) {
         print("Update me like one of those PCs")
+       
         if let curResult = resultLabel.text {
-            if (curResult.characters.count < 7 &&  curResult != "0") {
-                if (content == "+/-") {
+                switch content {
+                case "+/-":
                     if curResult[curResult.startIndex] == "-" {
                         resultLabel.text?.remove(at: curResult.startIndex)
                     } else {
-                        resultLabel.text = "-" + curResult
+                        if (curResult.characters.count < 7 &&  curResult != "0" && !op.newVal) {
+                            resultLabel.text = "-" + curResult
+                        }
                     }
-                } else {
-                    resultLabel.text = curResult + content
+                case ".":
+                    if (curResult.characters.count < 7 && !op.decUsed) {
+                        resultLabel.text = curResult + "."
+                        op.newVal = false
+                        op.decUsed = true
+                    }
+                case "=":
+                    op.setVar2(curResult)
+                    if let val = op.compute() {
+                        var valStr = String(val)
+                        if !isDouble(val) {
+                            valStr = String(Int(val))
+                        }
+                        resultLabel.text = valStr
+                        op.setVar1(valStr)
+                    } else {
+                        op.setVar1(curResult)
+                    }
+                    op.setOperator("")
+                    op.newVal = true
+                case "1","2","3","4","5","6","7","8","9","0":
+                    if (curResult.characters.count < 7 &&  curResult != "0" && !op.newVal) {
+                        resultLabel.text = curResult + content
+                    } else if (curResult == "0" || op.newVal) {
+                        resultLabel.text? = content
+                        op.switchNewVal()
+                    }
+                default:
+                    print("Placeholder for + / - / * / / / =")
+                    if op.op != "" {
+                        op.setVar2(curResult)
+                        if let val = op.compute() {
+                            var valStr = String(val)
+                            if !isDouble(val) {
+                                valStr = String(Int(val))
+                            }
+                            resultLabel.text = valStr
+                            op.setVar1(valStr)
+                        }
+                        op.setOperator(content)
+                        op.newVal = true
+                        op.decUsed = false
+                    } else {
+                        op.setVar1(curResult)
+                        op.setOperator(content)
+                        op.newVal = true
+                        op.decUsed = false
+                    }
                 }
-            } else if (curResult == "0") {
-                resultLabel.text? = content
-            }
         } else {
-            resultLabel.text = content
+            print("resultLabel.text should not be nil!")
         }
     }
     
+    
+    func isDouble(_ val : Double) -> Bool {
+        if (floor(val) == val) {
+            return false
+        }
+        return true
+    }
     
     // TODO: A calculate method with no parameters, scary!
     //       Modify this one or create your own.
@@ -134,6 +219,7 @@ class ViewController: UIViewController {
     
     func clearResults() {
         resultLabel.text = "0"
+        op.setOperator("")
     }
     
     // REQUIRED: The responder to a number button being pressed.
@@ -150,18 +236,19 @@ class ViewController: UIViewController {
         switch sender.content {
         case "C":
             clearResults()
-        case "+/-":
-            updateResultLabel(sender.content)
         default:
-            print("Hello?")
-            return
+            updateResultLabel(sender.content)
         }
     }
     
     // REQUIRED: The responder to a number or operator button being pressed.
     func buttonPressed(_ sender: CustomButton) {
         // Fill me in!
-        
+        if (sender.content == "0") {
+            numberPressed(sender)
+        } else {
+            operatorPressed(sender)
+        }
     }
     
     // IMPORTANT: Do NOT change any of the code below.
