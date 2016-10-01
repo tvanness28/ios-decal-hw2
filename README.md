@@ -20,26 +20,26 @@ By the end of this project, you will have learned how to update UI elements in r
 ### 1.  Required Behaviors  (See `GeneralCalcUITests`)
   - [x] a. `resultLabel` can hold a max of 7 characters 
   - [x] b. Pressing a number button updates the `resultLabel` (if a user action would violate rule a, ignore that action)
-  - [ ] c. `resultLabel` displays the correct value (the current number being entered, or the result of a calculation)
+  - [x] c. `resultLabel` displays the correct value (the current number being entered, or the result of a calculation)
   - [x] d. `C` button resets `resultLabel` to `0`
   - [x] e. `+/-` flips the sign of the input
-  - [ ] f. `=` updates the `resultLabel` with the resulting calculation
+  - [x] f. `=` updates the `resultLabel` with the resulting calculation
 
 ### 2. Basic Operations (See `BasicCalcUITests`)
-  - [ ] a. Support addition between single-digit integers
-  - [ ] b. Support subtraction between single-digit integers
-  - [ ] c. Support multiplication between single-digit integers
-  - [ ] d. Support division between any two integers
+  - [x] a. Support addition between single-digit integers
+  - [x] b. Support subtraction between single-digit integers
+  - [x] c. Support multiplication between single-digit integers
+  - [x] d. Support division between any two integers
 
 ### 3.  Intermediate Operations (See `IntermediateCalcUITests`)
-  - [ ] a. Consecutive operations will update `resultLabel` as though the `=` button was pressed prior (after pressing the buttons [`1`,`+`,`2`,`+`] `resultLabel` should read `3`. Then, after pressing [`4`, `=`], `resultLabel` should read `7`)
-  - [ ] b. Support successive addition and subtraction operations on integers
+  - [x] a. Consecutive operations will update `resultLabel` as though the `=` button was pressed prior (after pressing the buttons [`1`,`+`,`2`,`+`] `resultLabel` should read `3`. Then, after pressing [`4`, `=`], `resultLabel` should read `7`)
+  - [x] b. Support successive addition and subtraction operations on integers
   - [ ] c. Support valid sequences of operations on integers (pressing [`2`,`+`, `-`, `\`, `*`, `3`,`=`] should produce `6`)
 
 ### 4. Advanced Operations (See `AdvancedCalcUITests`)
-  - [ ] a. Division produces `Double`s instead of `Int`s where appropriate
-  - [ ] b. Display an `Int` when the `Double` result is equivalent to an `Int` of valid size 
-  - [ ] c. Support the entry and operations of `Decimal`s (see the `prettyOutput` computed property in `BaseExtension`)
+  - [x] a. Division produces `Double`s instead of `Int`s where appropriate
+  - [x] b. Display an `Int` when the `Double` result is equivalent to an `Int` of valid size 
+  - [x] c. Support the entry and operations of `Decimal`s (see the `prettyOutput` computed property in `BaseExtension`)
   - [ ] d. Support Scientific Notation for very large or very small results (`1000000 * 25 -> 2.5e7`, `9 / 4000000 -> 2.25e-6`)
 
 ### Bells & Whistles
