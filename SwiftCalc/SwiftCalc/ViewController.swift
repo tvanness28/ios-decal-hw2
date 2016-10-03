@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         var op : String
         var newVal : Bool
         var decUsed : Bool
+        var opLast : Bool
         
         init() {
             self.var1 = "0"
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
             self.op = ""
             self.newVal = true
             self.decUsed = false
+            self.opLast = false
         }
         
         func setVar1(_ val : String) {
@@ -140,6 +142,7 @@ class ViewController: UIViewController {
                         resultLabel.text = curResult + "."
                         op.newVal = false
                         op.decUsed = true
+                        op.opLast = false
                     }
                 case "=":
                     op.setVar2(curResult)
@@ -154,8 +157,10 @@ class ViewController: UIViewController {
                         op.setVar1(curResult)
                     }
                     op.setOperator("")
-                    op.newVal = true
+                    op.newVal = false
+                    op.opLast = false
                 case "1","2","3","4","5","6","7","8","9","0":
+                    op.opLast = false
                     if (curResult.characters.count < 7 &&  curResult != "0" && !op.newVal) {
                         resultLabel.text = curResult + content
                     } else if (curResult == "0" || op.newVal) {
@@ -163,8 +168,7 @@ class ViewController: UIViewController {
                         op.switchNewVal()
                     }
                 default:
-                    print("Placeholder for + / - / * / / / =")
-                    if op.op != "" {
+                    if op.op != "" && !op.opLast {
                         op.setVar2(curResult)
                         if let val = op.compute() {
                             var valStr = String(val)
@@ -177,11 +181,13 @@ class ViewController: UIViewController {
                         op.setOperator(content)
                         op.newVal = true
                         op.decUsed = false
+                        op.opLast = true
                     } else {
                         op.setVar1(curResult)
                         op.setOperator(content)
                         op.newVal = true
                         op.decUsed = false
+                        op.opLast = true
                     }
                 }
         } else {
@@ -219,7 +225,7 @@ class ViewController: UIViewController {
     
     func clearResults() {
         resultLabel.text = "0"
-        op.setOperator("")
+        op = Operation.init()
     }
     
     // REQUIRED: The responder to a number button being pressed.

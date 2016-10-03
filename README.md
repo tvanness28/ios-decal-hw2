@@ -34,7 +34,7 @@ By the end of this project, you will have learned how to update UI elements in r
 ### 3.  Intermediate Operations (See `IntermediateCalcUITests`)
   - [x] a. Consecutive operations will update `resultLabel` as though the `=` button was pressed prior (after pressing the buttons [`1`,`+`,`2`,`+`] `resultLabel` should read `3`. Then, after pressing [`4`, `=`], `resultLabel` should read `7`)
   - [x] b. Support successive addition and subtraction operations on integers
-  - [ ] c. Support valid sequences of operations on integers (pressing [`2`,`+`, `-`, `\`, `*`, `3`,`=`] should produce `6`)
+  - [x] c. Support valid sequences of operations on integers (pressing [`2`,`+`, `-`, `\`, `*`, `3`,`=`] should produce `6`)
 
 ### 4. Advanced Operations (See `AdvancedCalcUITests`)
   - [x] a. Division produces `Double`s instead of `Int`s where appropriate
