@@ -122,6 +122,37 @@ class ViewController: UIViewController {
         print("Update me like one of those PCs")
     }
     
+    func checkString(_ val: String) -> String {
+        let char_count = val.characters.count
+        if char_count >= 7 {
+            var sciNote = "e"
+            var power = "0"
+            if (abs(Double(val)!) < 1) {
+                sciNote += "-"
+                power = String(char_count - 2)
+                sciNote += power
+            } else if (val[val.startIndex] == "-") {
+                power = String(char_count - 2)
+                sciNote += power
+            } else {
+                power = String(char_count - 1)
+                sciNote += power
+            }
+            print(sciNote)
+            let valAsDec = Double(val)! / Double(pow(10.0,Double(power)!))
+            let strAsDec = String(valAsDec)
+            var offset = strAsDec.characters.count
+            if strAsDec.characters.count >= 7 {
+               offset = 7-sciNote.characters.count
+            }
+            let index = strAsDec.index(strAsDec.startIndex, offsetBy: offset)
+            print(strAsDec.substring(to: index))
+            return strAsDec.substring(to: index) + sciNote
+        } else {
+            return val
+        }
+    }
+    
     // TODO: Ensure that resultLabel gets updated.
     //       Modify this one or create your own.
     func updateResultLabel(_ content: String) {
@@ -151,13 +182,14 @@ class ViewController: UIViewController {
                         if !isDouble(val) {
                             valStr = String(Int(val))
                         }
+                        valStr = checkString(valStr)
                         resultLabel.text = valStr
                         op.setVar1(valStr)
                     } else {
                         op.setVar1(curResult)
                     }
                     op.setOperator("")
-                    op.newVal = false
+                    op.newVal = true
                     op.opLast = false
                 case "1","2","3","4","5","6","7","8","9","0":
                     op.opLast = false
@@ -175,6 +207,7 @@ class ViewController: UIViewController {
                             if !isDouble(val) {
                                 valStr = String(Int(val))
                             }
+                            valStr = checkString(valStr)
                             resultLabel.text = valStr
                             op.setVar1(valStr)
                         }

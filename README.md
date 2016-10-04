@@ -40,7 +40,7 @@ By the end of this project, you will have learned how to update UI elements in r
   - [x] a. Division produces `Double`s instead of `Int`s where appropriate
   - [x] b. Display an `Int` when the `Double` result is equivalent to an `Int` of valid size 
   - [x] c. Support the entry and operations of `Decimal`s (see the `prettyOutput` computed property in `BaseExtension`)
-  - [ ] d. Support Scientific Notation for very large or very small results (`1000000 * 25 -> 2.5e7`, `9 / 4000000 -> 2.25e-6`)
+  - [x] d. Support Scientific Notation for very large or very small results (`1000000 * 25 -> 2.5e7`, `9 / 4000000 -> 2.25e-6`)
 
 ### Bells & Whistles
 1. Make the calculator look more aesthetic (update buttons styles) 
